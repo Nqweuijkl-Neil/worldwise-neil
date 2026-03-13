@@ -1,7 +1,21 @@
+/* .app {
+    min-height: 100vh;
+    display: flex;
+    gap: 1.6rem;
+    padding: 1.6rem;
+} */
+
 .app {
-  height: 100vh;
-  padding: 2.4rem;
-  overscroll-behavior-y: none;
-  display: flex;
-  position: relative;
+    height: 100vh;
+    padding: 2.4rem;
+    overscroll-behavior-y: none;
+    display: flex;
+    position: relative;
+}
+
+@media (max-width: 900px) {
+    .app {
+        flex-direction: column;
+        min-height: 100vh;
+    }
 }

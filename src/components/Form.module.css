@@ -1,12 +1,18 @@
 .form {
-    /* box-sizing: border-box; */
     background-color: var(--color-dark--2);
     border-radius: 7px;
     width: 100%;
+    max-width: 100%;
+
+    /* NOTE: slightly tighter horizontal padding so it fits better on small screens */
     padding: 2rem 3rem;
+
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
+    /* NOTE: prevents child elements from causing overflow */
+    box-sizing: border-box;
 }
 
 .row {
@@ -19,6 +25,9 @@
 .buttons {
     display: flex;
     justify-content: space-between;
+
+    /* NOTE: adds spacing between buttons */
+    gap: 1rem;
 }
 
 .flag {
@@ -42,4 +51,45 @@
 :global(.react-datepicker) {
     font-family: inherit;
     font-size: 1.2rem;
+}
+
+/* NOTE: mobile styles */
+@media (max-width: 900px) {
+    .form {
+        /* NOTE: reduces padding so the form fits smaller screens better */
+        padding: 1.6rem;
+
+        /* NOTE: keeps the form from feeling too wide on mobile */
+        gap: 1.6rem;
+    }
+
+    .buttons {
+        /* NOTE: stacks buttons vertically on mobile */
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .buttons > * {
+        /* NOTE: makes each button take full width */
+        width: 100%;
+    }
+
+    .flag {
+        /* NOTE: slightly smaller flag for better spacing on small screens */
+        font-size: 2.2rem;
+        top: 2.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form {
+        /* NOTE: even tighter padding for very small phones */
+        padding: 1.2rem;
+    }
+
+    .flag {
+        /* NOTE: prevents the flag from crowding the input on very small screens */
+        right: 0.8rem;
+        font-size: 2rem;
+    }
 }

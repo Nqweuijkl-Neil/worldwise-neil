@@ -32,17 +32,6 @@ function Map() {
           ? [mapLat, mapLng]
           : [14.557250199976563, 121.06110914491279];
 
-    // const [mapPosition, setMapPosition] = useState([,]);
-
-    // useEffect(() => {
-    //     if (mapLat && mapLng) setMapPosition([mapLat, mapLng]);
-    // }, [mapLat, mapLng]);
-
-    // useEffect(() => {
-    //     if (geolocationPosition)
-    //         setMapPosition([geolocationPosition.lat, geolocationPosition.lng]);
-    // }, [geolocationPosition]);
-
     return (
         <div className={styles.mapContainer}>
             {!geolocationPosition && (

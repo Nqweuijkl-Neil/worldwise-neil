@@ -52,3 +52,76 @@
     background-color: var(--color-brand--1);
     color: var(--color-dark--1);
 }
+
+@media (max-width: 900px) {
+    .cityItem,
+    .cityItem:link,
+    .cityItem:visited {
+        /* NOTE: reduced spacing between items */
+        gap: 1rem;
+
+        /* NOTE: reduced padding for smaller screens */
+        padding: 0.8rem 1.2rem;
+
+        /* NOTE: slightly thinner left accent for mobile */
+        border-left: 4px solid var(--color-brand--2);
+    }
+
+    .cityItem--active {
+        /* NOTE: keeps active state visible but slightly lighter on mobile */
+        border: 2px solid var(--color-brand--2);
+        border-left: 4px solid var(--color-brand--2);
+    }
+
+    .emoji {
+        /* NOTE: reduced emoji size */
+        font-size: 2.1rem;
+    }
+
+    .name {
+        /* NOTE: reduced city name size */
+        font-size: 1.4rem;
+    }
+
+    .date {
+        /* NOTE: reduced date size */
+        font-size: 1.2rem;
+    }
+
+    .deleteBtn {
+        /* NOTE: reduced button size for mobile */
+        height: 1.8rem;
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cityItem,
+    .cityItem:link,
+    .cityItem:visited {
+        /* NOTE: tighter spacing for very small phones */
+        gap: 0.8rem;
+        padding: 0.7rem 1rem;
+    }
+
+    .emoji {
+        /* NOTE: smaller emoji for narrow screens */
+        font-size: 1.8rem;
+    }
+
+    .name {
+        /* NOTE: smaller city text for narrow screens */
+        font-size: 1.2rem;
+    }
+
+    .date {
+        /* NOTE: smaller date text for narrow screens */
+        font-size: 1.05rem;
+    }
+
+    .deleteBtn {
+        /* NOTE: smaller delete button for narrow screens */
+        height: 1.6rem;
+        font-size: 1.1rem;
+    }
+}
