@@ -1,4 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
+import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 // const BASE_URL = "http://localhost:8000";
 const STORAGE_KEY = "pintrail-cities";
@@ -18,12 +19,6 @@ function reducer(state, action) {
             return {
                 ...state,
                 isLoading: true,
-            };
-        case "cities/loaded":
-            return {
-                ...state,
-                isLoading: false,
-                cities: action.payload,
             };
         case "city/loaded":
             return {
@@ -58,51 +53,25 @@ function reducer(state, action) {
     }
 }
 
-function loadCitiesFromLocalStorage() {
-    try {
-        const storedCities = localStorage.getItem(STORAGE_KEY);
-        return storedCities ? JSON.parse(storedCities) : [];
-    } catch {
-        return [];
-    }
-}
-
 function CitiesProvider({ children }) {
     // const [cities, setCities] = useState([]);
     // const [isLoading, setIsLoading] = useState(false);
     // const [currentCity, setCurrentCity] = useState({});
+    const [storedCities, setStoredCities] = useLocalStorageState(
+        [],
+        STORAGE_KEY,
+    );
 
     const [{ cities, isLoading, currentCity, error }, dispatch] = useReducer(
         reducer,
-        initializeState,
+        { ...initializeState, cities: storedCities },
     );
 
     useEffect(() => {
-        async function fetchCities() {
-            dispatch({ type: "loading" });
-            try {
-                // const res = await fetch(`${BASE_URL}/cities`);
-                // const data = await res.json();
-                const storedCities = loadCitiesFromLocalStorage();
-                dispatch({ type: "cities/loaded", payload: storedCities });
-            } catch {
-                dispatch({
-                    type: "rejected",
-                    payload: "There was an error fetching cities.",
-                });
-            }
-        }
-        fetchCities();
-    }, []);
-
-    // added: useEffect for the localstorage
-    useEffect(() => {
-        // added: save cities to localStorage whenever cities changes
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(cities));
-    }, [cities]);
+        setStoredCities(cities);
+    }, [cities, setStoredCities]);
 
     async function getCity(id) {
-        console.log(Number(id), currentCity.id);
         if (Number(id) === currentCity.id) return;
         dispatch({ type: "loading" });
         try {
