@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import { useCallback } from "react";
 
 // const BASE_URL = "http://localhost:8000";
 const STORAGE_KEY = "pintrail-cities";
@@ -71,26 +72,29 @@ function CitiesProvider({ children }) {
         setStoredCities(cities);
     }, [cities, setStoredCities]);
 
-    async function getCity(id) {
-        if (Number(id) === currentCity.id) return;
-        dispatch({ type: "loading" });
-        try {
-            // const res = await fetch(`${BASE_URL}/cities/${id}`);
-            // const data = await res.json();
-            const city = cities.find(
-                (city) => city.id === id || city.id === Number(id),
-            );
+    const getCity = useCallback(
+        async function getCity(id) {
+            if (Number(id) === currentCity.id) return;
+            dispatch({ type: "loading" });
+            try {
+                // const res = await fetch(`${BASE_URL}/cities/${id}`);
+                // const data = await res.json();
+                const city = cities.find(
+                    (city) => city.id === id || city.id === Number(id),
+                );
 
-            if (!city) throw new Error("City not found");
+                if (!city) throw new Error("City not found");
 
-            dispatch({ type: "city/loaded", payload: city });
-        } catch {
-            dispatch({
-                type: "rejected",
-                payload: "There was an error loading the city.",
-            });
-        }
-    }
+                dispatch({ type: "city/loaded", payload: city });
+            } catch {
+                dispatch({
+                    type: "rejected",
+                    payload: "There was an error loading the city.",
+                });
+            }
+        },
+        [currentCity.id],
+    );
 
     async function createCity(newCity) {
         dispatch({ type: "loading" });
